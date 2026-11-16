@@ -1,0 +1,15 @@
+# Control de acceso por usuario (principio de mínimo privilegio)
+user bridge
+topic read capstone/#
+
+user backend
+topic readwrite capstone/#
+
+user cloud-devices
+topic readwrite capstone/#
+
+# los dispositivos reales solo publican lo suyo y leen sus comandos
+user real-device
+topic write capstone/real/+/telemetry
+topic write capstone/real/+/state
+topic read capstone/real/+/cmd

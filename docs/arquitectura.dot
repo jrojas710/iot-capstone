@@ -1,0 +1,44 @@
+digraph G {
+  rankdir=LR; newrank=true; fontname="Helvetica"; nodesep=0.25; ranksep=0.7;
+  node [fontname="Helvetica", fontsize=11, shape=box, style="rounded,filled", fillcolor="#ffffff", color="#555555"];
+  edge [fontname="Helvetica", fontsize=9, color="#555555"];
+
+  subgraph cluster_dev { label="1 · DISPOSITIVOS Y SENSORES (12)"; style="rounded,filled"; fillcolor="#f7f4ee"; color="#d8d2c4"; fontsize=12;
+    subgraph cluster_real { label="Reales (2) · PC del estudiante"; style="rounded,filled"; fillcolor="#e6eefc"; color="#2f6fdf";
+      r1 [label="real-pc-01\nCPU · RAM · disco · batería · T° CPU\n(psutil)"]; r2 [label="real-net-01\nlatencia · jitter · pérdida\n(sockets TCP)"]; }
+    subgraph cluster_api { label="API (3) · Azure Maps Weather"; style="rounded,filled"; fillcolor="#fbeedd"; color="#c26a12";
+      azm [label="Azure Maps\nREST API (HTTPS)", shape=cylinder, fillcolor="#fff7ec"];
+      a1 [label="api-weather-unab"]; a2 [label="api-weather-floridablanca"]; a3 [label="api-air-unab\n(calidad del aire)"]; }
+    subgraph cluster_twin { label="Gemelos digitales (4)"; style="rounded,filled"; fillcolor="#efe6f8"; color="#7a3bb8";
+      t1 [label="twin-greenhouse-01\ninvernadero + riego"]; t2 [label="twin-hvac-aula-01\naula: CO₂ + clima"]; t3 [label="twin-solar-01\nFV + batería"]; t4 [label="twin-tank-01\ntanque + bomba"]; }
+    subgraph cluster_ds { label="DataSet (3) · UCI Occupancy"; style="rounded,filled"; fillcolor="#dff1ef"; color="#0f7c78";
+      d1 [label="ds-office-a"]; d2 [label="ds-office-b"]; d3 [label="ds-office-c"]; }
+  }
+
+  subgraph cluster_cloud { label="2–4 · NUBE: Azure VM Ubuntu (Standard_B2s) · Docker Compose · https://<dns>.eastus2.cloudapp.azure.com"; style="rounded,filled"; fillcolor="#eef3f9"; color="#0b5cad"; fontsize=12;
+    caddy [label="Caddy\nproxy inverso + TLS\n(Let's Encrypt)", fillcolor="#dce8f7"];
+    mq [label="Mosquitto (bróker MQTT)\n:1883 interno · :9001 WebSocket\nusuarios + ACL", fillcolor="#d7f0dc", color="#2f9e44"];
+    adapt [label="devices\n(adaptador API, gemelos\ny reproductor de dataset)"];
+    bridge [label="bridge\nMQTT → InfluxDB\n(line protocol, lotes)"];
+    db [label="InfluxDB 2.7\nseries de tiempo\n(bucket iot)", shape=cylinder, fillcolor="#fff4d6"];
+    back [label="Backend FastAPI\nREST /api · retroceso\nwebhook de alertas"];
+    graf [label="Grafana 11\ndashboards + reglas de alerta\n(prom/máx/mín, rango de tiempo)", fillcolor="#fde6d6"];
+  }
+
+  subgraph cluster_users { label="5 · VISUALIZACIÓN Y CONTROL"; style="rounded,filled"; fillcolor="#f7f4ee"; color="#d8d2c4"; fontsize=12;
+    web [label="Panel web (front)\nestado + control", fillcolor="#ffffff"]; gview [label="Dashboards\nGrafana", fillcolor="#ffffff"]; }
+
+  r1 -> caddy [label="MQTT/WSS 443\nJSON QoS1", color="#2f6fdf", fontcolor="#2f6fdf"]; r2 -> caddy [color="#2f6fdf"];
+  azm -> a1 [label="HTTPS GET", color="#c26a12", fontcolor="#c26a12"]; azm -> a2 [color="#c26a12"]; azm -> a3 [color="#c26a12"];
+  a1 -> adapt; a2 -> adapt; a3 -> adapt; t1 -> adapt; t2 -> adapt; t3 -> adapt; t4 -> adapt; d1 -> adapt; d2 -> adapt; d3 -> adapt;
+  caddy -> mq [label="ws :9001"];
+  adapt -> mq [label="MQTT 1883\ntelemetry / state"];
+  mq -> bridge [label="capstone/#"]; bridge -> db [label="HTTP /api/v2/write"];
+  db -> graf [label="Flux"]; graf -> back [label="webhook alertas", style=dashed];
+  back -> db [label="registra alertas", style=dashed];
+  mq -> back [label="último estado"];
+  back -> mq [label="RETROCESO\n.../cmd (retained)", color="#d8432f", fontcolor="#d8432f", penwidth=2];
+  mq -> adapt [label="cmd", color="#d8432f", fontcolor="#d8432f", style=dashed];
+  web -> caddy [label="HTTPS", dir=both]; gview -> caddy [label="HTTPS /grafana", dir=both];
+  caddy -> back [label="/ y /api"]; caddy -> graf [label="/grafana"];
+}

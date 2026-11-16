@@ -1,0 +1,13 @@
+# HTTPS automático (Let's Encrypt) para el dominio propio de la plataforma
+{$DOMAIN} {
+	encode gzip
+	handle /grafana* {
+		reverse_proxy grafana:3000
+	}
+	handle /mqtt* {
+		reverse_proxy mosquitto:9001
+	}
+	handle {
+		reverse_proxy backend:8000
+	}
+}

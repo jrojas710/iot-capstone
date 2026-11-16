@@ -1,0 +1,114 @@
+x-py: &py
+  build: ./services
+  image: iot-capstone-py
+  restart: unless-stopped
+  depends_on: [mosquitto]
+  environment: &pyenv
+    MQTT_HOST: mosquitto
+    MQTT_PORT: "1883"
+    INFLUX_URL: http://influxdb:8086
+    INFLUX_ORG: ${INFLUX_ORG}
+    INFLUX_BUCKET: ${INFLUX_BUCKET}
+    INFLUX_TOKEN: ${INFLUX_TOKEN}
+
+services:
+  caddy:
+    image: caddy:2.8
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+    depends_on: [backend, grafana, mosquitto]
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    restart: unless-stopped
+    environment:
+      MQTT_BRIDGE_PASSWORD: ${MQTT_BRIDGE_PASSWORD}
+      MQTT_BACKEND_PASSWORD: ${MQTT_BACKEND_PASSWORD}
+      MQTT_DEVICES_PASSWORD: ${MQTT_DEVICES_PASSWORD}
+      MQTT_REAL_PASSWORD: ${MQTT_REAL_PASSWORD}
+    command: >
+      sh -c 'mosquitto_passwd -c -b /mosquitto/passwd bridge "$$MQTT_BRIDGE_PASSWORD" &&
+             mosquitto_passwd -b /mosquitto/passwd backend "$$MQTT_BACKEND_PASSWORD" &&
+             mosquitto_passwd -b /mosquitto/passwd cloud-devices "$$MQTT_DEVICES_PASSWORD" &&
+             mosquitto_passwd -b /mosquitto/passwd real-device "$$MQTT_REAL_PASSWORD" &&
+             chown mosquitto:mosquitto /mosquitto/passwd && chmod 0700 /mosquitto/passwd &&
+             exec mosquitto -c /mosquitto/config/mosquitto.conf'
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mosquitto/aclfile:/mosquitto/config/aclfile:ro
+      - mosquitto-data:/mosquitto/data
+
+  influxdb:
+    image: influxdb:2.7
+    restart: unless-stopped
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUX_USER}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUX_PASSWORD}
+      DOCKER_INFLUXDB_INIT_ORG: ${INFLUX_ORG}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${INFLUX_BUCKET}
+      DOCKER_INFLUXDB_INIT_RETENTION: 60d
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUX_TOKEN}
+    volumes:
+      - influx-data:/var/lib/influxdb2
+
+  grafana:
+    image: grafana/grafana-oss:11.2.0
+    restart: unless-stopped
+    depends_on: [influxdb]
+    environment:
+      GF_SERVER_ROOT_URL: https://${DOMAIN}/grafana/
+      GF_SERVER_SERVE_FROM_SUB_PATH: "true"
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/overview.json
+      INFLUX_TOKEN: ${INFLUX_TOKEN}
+      INFLUX_ORG: ${INFLUX_ORG}
+      ALERT_TOKEN: ${ALERT_TOKEN}
+      TZ: America/Bogota
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+
+  bridge:
+    <<: *py
+    depends_on: [mosquitto, influxdb]
+    command: python bridge.py
+    environment:
+      <<: *pyenv
+      MQTT_USER: bridge
+      MQTT_PASSWORD: ${MQTT_BRIDGE_PASSWORD}
+
+  backend:
+    <<: *py
+    command: uvicorn backend:app --host 0.0.0.0 --port 8000 --proxy-headers
+    environment:
+      <<: *pyenv
+      MQTT_USER: backend
+      MQTT_PASSWORD: ${MQTT_BACKEND_PASSWORD}
+      ADMIN_TOKEN: ${ADMIN_TOKEN}
+      ALERT_TOKEN: ${ALERT_TOKEN}
+
+  devices:
+    <<: *py
+    working_dir: /app/devices
+    command: python run_cloud.py
+    environment:
+      <<: *pyenv
+      MQTT_USER: cloud-devices
+      MQTT_PASSWORD: ${MQTT_DEVICES_PASSWORD}
+      AZURE_MAPS_KEY: ${AZURE_MAPS_KEY}
+
+volumes:
+  caddy-data:
+  mosquitto-data:
+  influx-data:
+  grafana-data:

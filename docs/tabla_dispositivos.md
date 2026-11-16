@@ -1,0 +1,14 @@
+| # | Dispositivo | Protocolo | Variables (unidad, rango) | Periodo |
+|--|------------------|-------------|------------------------------------------------|------|
+| 1 | **real-pc-01** — Real: Equipo del estudiante | MQTT/WSS (TLS 443) | cpu_pct (%, 0–100) · ram_pct (%, 0–100) · disk_pct (%, 0–100) · battery_pct (%, 0–100) · cpu_temp_c (°C, 30–100) · plugged_in (0/1, 0–1) | 30 s |
+| 2 | **real-net-01** — Real: Conexión a Internet | MQTT/WSS (TLS 443) | latency_ms (ms, 0–500) · jitter_ms (ms, 0–200) · loss_pct (%, 0–100) | 30 s |
+| 3 | **api-weather-unab** — API: Clima UNAB | HTTPS REST → MQTT | temperature_c (°C, 10–35) · humidity_pct (%, 20–100) · pressure_mb (mb, 1000–1025) · wind_kmh (km/h, 0–40) · uv_index (índice, 0–14) · cloud_cover_pct (%, 0–100) · precip_mm (mm/h, 0–30) | 600 s |
+| 4 | **api-weather-floridablanca** — API: Clima Floridablanca | HTTPS REST → MQTT | temperature_c (°C, 10–35) · humidity_pct (%, 20–100) · pressure_mb (mb, 1000–1025) · wind_kmh (km/h, 0–40) · uv_index (índice, 0–14) · cloud_cover_pct (%, 0–100) · precip_mm (mm/h, 0–30) | 600 s |
+| 5 | **api-air-unab** — API: Calidad del aire UNAB | HTTPS REST → MQTT | aqi (índice, 0–300) · pm2_5 (µg/m³, 0–150) · pm10 (µg/m³, 0–250) · o3 (µg/m³, 0–200) · no2 (µg/m³, 0–200) · co (µg/m³, 0–2000) | 900 s |
+| 6 | **twin-greenhouse-01** — Gemelo: Invernadero con riego | MQTT (QoS 1) | air_temp_c (°C, 15–40) · rel_humidity_pct (%, 30–100) · soil_moisture_pct (%, 0–100) · light_lux (lux, 0–60000) · irrigation_on (0/1, 0–1) | 60 s |
+| 7 | **twin-hvac-aula-01** — Gemelo: Aula climatizada | MQTT (QoS 1) | room_temp_c (°C, 18–32) · co2_ppm (ppm, 400–2000) · occupancy (personas, 0–40) · hvac_power_kw (kW, 0–5) · setpoint_c (°C, 18–28) | 60 s |
+| 8 | **twin-solar-01** — Gemelo: Panel solar + batería | MQTT (QoS 1) | irradiance_wm2 (W/m², 0–1100) · pv_power_w (W, 0–1200) · load_w (W, 0–900) · battery_soc_pct (%, 0–100) · load_shed (0/1, 0–1) | 60 s |
+| 9 | **twin-tank-01** — Gemelo: Tanque + bomba | MQTT (QoS 1) | level_pct (%, 0–100) · inflow_lpm (L/min, 0–60) · outflow_lpm (L/min, 0–40) · pump_on (0/1, 0–1) | 60 s |
+| 10 | **ds-office-a** — DataSet: Oficina A (UCI) | CSV → MQTT | temperature_c (°C, 19–25) · humidity_pct (%, 16–40) · light_lux (lux, 0–1700) · co2_ppm (ppm, 410–2080) · humidity_ratio (kg/kg, 0.0026–0.0065) · occupancy (0/1, 0–1) | 60 s |
+| 11 | **ds-office-b** — DataSet: Oficina B (UCI) | CSV → MQTT | temperature_c (°C, 19–25) · humidity_pct (%, 16–40) · light_lux (lux, 0–1700) · co2_ppm (ppm, 410–2080) · humidity_ratio (kg/kg, 0.0026–0.0065) · occupancy (0/1, 0–1) | 60 s |
+| 12 | **ds-office-c** — DataSet: Oficina C (UCI) | CSV → MQTT | temperature_c (°C, 19–25) · humidity_pct (%, 16–40) · light_lux (lux, 0–1700) · co2_ppm (ppm, 410–2080) · humidity_ratio (kg/kg, 0.0026–0.0065) · occupancy (0/1, 0–1) | 60 s |

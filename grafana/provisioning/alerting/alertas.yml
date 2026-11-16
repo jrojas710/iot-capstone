@@ -1,0 +1,355 @@
+apiVersion: 1
+contactPoints:
+- orgId: 1
+  name: backend-webhook
+  receivers:
+  - uid: webhook-backend
+    type: webhook
+    settings:
+      url: http://backend:8000/api/alerts
+      httpMethod: POST
+      authorization_scheme: Bearer
+      authorization_credentials: $ALERT_TOKEN
+policies:
+- orgId: 1
+  receiver: backend-webhook
+  group_by:
+  - alertname
+  - device
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+groups:
+- orgId: 1
+  name: capstone-reglas
+  folder: IoT Capstone
+  interval: 1m
+  rules:
+  - uid: cpu-alta
+    title: CPU alta en el equipo real
+    condition: C
+    for: 2m
+    noDataState: OK
+    execErrState: Error
+    labels:
+      device: real-pc-01
+      severity: warning
+    annotations:
+      summary: Uso de CPU promedio > 85 % en 10 min
+    data:
+    - refId: A
+      datasourceUid: influx
+      relativeTimeRange:
+        from: 600
+        to: 0
+      model:
+        refId: A
+        query: "from(bucket: \"iot\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n\
+          \  |> filter(fn: (r) => r._measurement == \"telemetry\" and r.device ==\
+          \ \"real-pc-01\" and r._field == \"cpu_pct\")\n  |> group(columns: [\"device\"\
+          ])\n  |> mean()"
+    - refId: B
+      datasourceUid: __expr__
+      model:
+        refId: B
+        type: reduce
+        expression: A
+        reducer: last
+    - refId: C
+      datasourceUid: __expr__
+      model:
+        refId: C
+        type: threshold
+        expression: B
+        conditions:
+        - evaluator:
+            type: gt
+            params:
+            - 85
+  - uid: latencia-alta
+    title: Latencia de red alta
+    condition: C
+    for: 2m
+    noDataState: OK
+    execErrState: Error
+    labels:
+      device: real-net-01
+      severity: warning
+    annotations:
+      summary: Latencia mediana > 150 ms en 10 min
+    data:
+    - refId: A
+      datasourceUid: influx
+      relativeTimeRange:
+        from: 600
+        to: 0
+      model:
+        refId: A
+        query: "from(bucket: \"iot\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n\
+          \  |> filter(fn: (r) => r._measurement == \"telemetry\" and r.device ==\
+          \ \"real-net-01\" and r._field == \"latency_ms\")\n  |> group(columns: [\"\
+          device\"])\n  |> mean()"
+    - refId: B
+      datasourceUid: __expr__
+      model:
+        refId: B
+        type: reduce
+        expression: A
+        reducer: last
+    - refId: C
+      datasourceUid: __expr__
+      model:
+        refId: C
+        type: threshold
+        expression: B
+        conditions:
+        - evaluator:
+            type: gt
+            params:
+            - 150
+  - uid: pm25-alto
+    title: PM2.5 por encima de la guía
+    condition: C
+    for: 2m
+    noDataState: OK
+    execErrState: Error
+    labels:
+      device: api-air-unab
+      severity: warning
+    annotations:
+      summary: PM2.5 > 35 µg/m³ (nivel dañino para grupos sensibles)
+    data:
+    - refId: A
+      datasourceUid: influx
+      relativeTimeRange:
+        from: 3600
+        to: 0
+      model:
+        refId: A
+        query: "from(bucket: \"iot\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n\
+          \  |> filter(fn: (r) => r._measurement == \"telemetry\" and r.device ==\
+          \ \"api-air-unab\" and r._field == \"pm2_5\")\n  |> group(columns: [\"device\"\
+          ])\n  |> mean()"
+    - refId: B
+      datasourceUid: __expr__
+      model:
+        refId: B
+        type: reduce
+        expression: A
+        reducer: last
+    - refId: C
+      datasourceUid: __expr__
+      model:
+        refId: C
+        type: threshold
+        expression: B
+        conditions:
+        - evaluator:
+            type: gt
+            params:
+            - 35
+  - uid: invernadero-caliente
+    title: Invernadero sobre 32 °C
+    condition: C
+    for: 2m
+    noDataState: OK
+    execErrState: Error
+    labels:
+      device: twin-greenhouse-01
+      severity: warning
+    annotations:
+      summary: Temperatura del invernadero > 32 °C
+    data:
+    - refId: A
+      datasourceUid: influx
+      relativeTimeRange:
+        from: 600
+        to: 0
+      model:
+        refId: A
+        query: "from(bucket: \"iot\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n\
+          \  |> filter(fn: (r) => r._measurement == \"telemetry\" and r.device ==\
+          \ \"twin-greenhouse-01\" and r._field == \"air_temp_c\")\n  |> group(columns:\
+          \ [\"device\"])\n  |> mean()"
+    - refId: B
+      datasourceUid: __expr__
+      model:
+        refId: B
+        type: reduce
+        expression: A
+        reducer: last
+    - refId: C
+      datasourceUid: __expr__
+      model:
+        refId: C
+        type: threshold
+        expression: B
+        conditions:
+        - evaluator:
+            type: gt
+            params:
+            - 32
+  - uid: co2-aula
+    title: CO₂ alto en el aula
+    condition: C
+    for: 2m
+    noDataState: OK
+    execErrState: Error
+    labels:
+      device: twin-hvac-aula-01
+      severity: warning
+    annotations:
+      summary: 'CO₂ > 1000 ppm: ventilar'
+    data:
+    - refId: A
+      datasourceUid: influx
+      relativeTimeRange:
+        from: 600
+        to: 0
+      model:
+        refId: A
+        query: "from(bucket: \"iot\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n\
+          \  |> filter(fn: (r) => r._measurement == \"telemetry\" and r.device ==\
+          \ \"twin-hvac-aula-01\" and r._field == \"co2_ppm\")\n  |> group(columns:\
+          \ [\"device\"])\n  |> mean()"
+    - refId: B
+      datasourceUid: __expr__
+      model:
+        refId: B
+        type: reduce
+        expression: A
+        reducer: last
+    - refId: C
+      datasourceUid: __expr__
+      model:
+        refId: C
+        type: threshold
+        expression: B
+        conditions:
+        - evaluator:
+            type: gt
+            params:
+            - 1000
+  - uid: bateria-baja
+    title: Batería solar baja
+    condition: C
+    for: 2m
+    noDataState: OK
+    execErrState: Error
+    labels:
+      device: twin-solar-01
+      severity: warning
+    annotations:
+      summary: 'SOC < 20 %: deslastre de carga'
+    data:
+    - refId: A
+      datasourceUid: influx
+      relativeTimeRange:
+        from: 600
+        to: 0
+      model:
+        refId: A
+        query: "from(bucket: \"iot\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n\
+          \  |> filter(fn: (r) => r._measurement == \"telemetry\" and r.device ==\
+          \ \"twin-solar-01\" and r._field == \"battery_soc_pct\")\n  |> group(columns:\
+          \ [\"device\"])\n  |> mean()"
+    - refId: B
+      datasourceUid: __expr__
+      model:
+        refId: B
+        type: reduce
+        expression: A
+        reducer: last
+    - refId: C
+      datasourceUid: __expr__
+      model:
+        refId: C
+        type: threshold
+        expression: B
+        conditions:
+        - evaluator:
+            type: lt
+            params:
+            - 20
+  - uid: tanque-bajo
+    title: Tanque casi vacío
+    condition: C
+    for: 2m
+    noDataState: OK
+    execErrState: Error
+    labels:
+      device: twin-tank-01
+      severity: warning
+    annotations:
+      summary: Nivel < 15 %
+    data:
+    - refId: A
+      datasourceUid: influx
+      relativeTimeRange:
+        from: 600
+        to: 0
+      model:
+        refId: A
+        query: "from(bucket: \"iot\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n\
+          \  |> filter(fn: (r) => r._measurement == \"telemetry\" and r.device ==\
+          \ \"twin-tank-01\" and r._field == \"level_pct\")\n  |> group(columns: [\"\
+          device\"])\n  |> mean()"
+    - refId: B
+      datasourceUid: __expr__
+      model:
+        refId: B
+        type: reduce
+        expression: A
+        reducer: last
+    - refId: C
+      datasourceUid: __expr__
+      model:
+        refId: C
+        type: threshold
+        expression: B
+        conditions:
+        - evaluator:
+            type: lt
+            params:
+            - 15
+  - uid: co2-oficina
+    title: CO₂ alto en oficina (dataset)
+    condition: C
+    for: 2m
+    noDataState: OK
+    execErrState: Error
+    labels:
+      device: ds-office-c
+      severity: warning
+    annotations:
+      summary: CO₂ > 1200 ppm en la oficina C
+    data:
+    - refId: A
+      datasourceUid: influx
+      relativeTimeRange:
+        from: 600
+        to: 0
+      model:
+        refId: A
+        query: "from(bucket: \"iot\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n\
+          \  |> filter(fn: (r) => r._measurement == \"telemetry\" and r.device ==\
+          \ \"ds-office-c\" and r._field == \"co2_ppm\")\n  |> group(columns: [\"\
+          device\"])\n  |> mean()"
+    - refId: B
+      datasourceUid: __expr__
+      model:
+        refId: B
+        type: reduce
+        expression: A
+        reducer: last
+    - refId: C
+      datasourceUid: __expr__
+      model:
+        refId: C
+        type: threshold
+        expression: B
+        conditions:
+        - evaluator:
+            type: gt
+            params:
+            - 1200

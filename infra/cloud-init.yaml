@@ -1,0 +1,9 @@
+#cloud-config
+package_update: true
+packages: [git, openssl]
+runcmd:
+  - curl -fsSL https://get.docker.com | sh
+  - usermod -aG docker azureuser
+  - git clone __REPO__ /opt/iot-capstone
+  - chown -R azureuser:azureuser /opt/iot-capstone
+  - chmod +x /opt/iot-capstone/scripts/*.sh
