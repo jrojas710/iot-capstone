@@ -25,12 +25,12 @@ FLORIDA = (7.0647, -73.0898)       # Floridablanca
 def build():
     weather = WeatherInput("api-weather-unab")
     devs = []
-    if os.getenv("AZURE_MAPS_KEY"):
+    if os.getenv("API_PROVIDER", "openmeteo") == "openmeteo" or os.getenv("AZURE_MAPS_KEY"):
         devs += [WeatherStation("api-weather-unab", *UNAB),
                  WeatherStation("api-weather-floridablanca", *FLORIDA),
                  AirQualityStation("api-air-unab", *UNAB)]
     else:
-        log.warning("AZURE_MAPS_KEY vacía: los 3 dispositivos API quedan desactivados")
+        log.warning("sin proveedor de API configurado: los 3 dispositivos API quedan desactivados")
     devs += [Greenhouse("twin-greenhouse-01", weather), ClassroomHVAC("twin-hvac-aula-01", weather),
              SolarBattery("twin-solar-01", weather), WaterTank("twin-tank-01", weather),
              OfficeReplay("ds-office-a", "datatraining.txt"),
@@ -45,9 +45,9 @@ def backfill(devs, days):
     for d in devs:
         n = 0
         if d.kind == "api":
-            if hasattr(d, "backfill_24h"):
+            if hasattr(d, "backfill"):
                 try:
-                    n = d.backfill_24h()
+                    n = d.backfill(days)
                 except Exception as e:      # la API puede fallar: no bloquea el resto
                     log.warning("%s: sin histórico de API (%s)", d.id, e)
             continue
