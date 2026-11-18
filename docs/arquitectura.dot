@@ -6,8 +6,8 @@ digraph G {
   subgraph cluster_dev { label="1 · DISPOSITIVOS Y SENSORES (12)"; style="rounded,filled"; fillcolor="#f7f4ee"; color="#d8d2c4"; fontsize=12;
     subgraph cluster_real { label="Reales (2) · PC del estudiante"; style="rounded,filled"; fillcolor="#e6eefc"; color="#2f6fdf";
       r1 [label="real-pc-01\nCPU · RAM · disco · batería · T° CPU\n(psutil)"]; r2 [label="real-net-01\nlatencia · jitter · pérdida\n(sockets TCP)"]; }
-    subgraph cluster_api { label="API (3) · Azure Maps Weather"; style="rounded,filled"; fillcolor="#fbeedd"; color="#c26a12";
-      azm [label="Azure Maps\nREST API (HTTPS)", shape=cylinder, fillcolor="#fff7ec"];
+    subgraph cluster_api { label="API (3) · Open-Meteo"; style="rounded,filled"; fillcolor="#fbeedd"; color="#c26a12";
+      azm [label="Open-Meteo\nForecast + Air Quality\nREST API (HTTPS)", shape=cylinder, fillcolor="#fff7ec"];
       a1 [label="api-weather-unab"]; a2 [label="api-weather-floridablanca"]; a3 [label="api-air-unab\n(calidad del aire)"]; }
     subgraph cluster_twin { label="Gemelos digitales (4)"; style="rounded,filled"; fillcolor="#efe6f8"; color="#7a3bb8";
       t1 [label="twin-greenhouse-01\ninvernadero + riego"]; t2 [label="twin-hvac-aula-01\naula: CO₂ + clima"]; t3 [label="twin-solar-01\nFV + batería"]; t4 [label="twin-tank-01\ntanque + bomba"]; }
@@ -15,7 +15,7 @@ digraph G {
       d1 [label="ds-office-a"]; d2 [label="ds-office-b"]; d3 [label="ds-office-c"]; }
   }
 
-  subgraph cluster_cloud { label="2–4 · NUBE: Azure VM Ubuntu (Standard_B2s) · Docker Compose · https://<dns>.eastus2.cloudapp.azure.com"; style="rounded,filled"; fillcolor="#eef3f9"; color="#0b5cad"; fontsize=12;
+  subgraph cluster_cloud { label="2–4 · NUBE: Azure VM Ubuntu (serie B, México Central) · Docker Compose · https://iot-juanrojas-capstone.mexicocentral.cloudapp.azure.com"; style="rounded,filled"; fillcolor="#eef3f9"; color="#0b5cad"; fontsize=12;
     caddy [label="Caddy\nproxy inverso + TLS\n(Let's Encrypt)", fillcolor="#dce8f7"];
     mq [label="Mosquitto (bróker MQTT)\n:1883 interno · :9001 WebSocket\nusuarios + ACL", fillcolor="#d7f0dc", color="#2f9e44"];
     adapt [label="devices\n(adaptador API, gemelos\ny reproductor de dataset)"];

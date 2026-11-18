@@ -28,7 +28,7 @@
   {
    "id": 1,
    "type": "stat",
-   "title": "Dispositivos reportando (últimos 10 min)",
+   "title": "Dispositivos reportando (últimos 20 min)",
    "datasource": {
     "type": "influxdb",
     "uid": "influx"
@@ -46,7 +46,7 @@
       "type": "influxdb",
       "uid": "influx"
      },
-     "query": "from(bucket: \"iot\")\n  |> range(start: -10m)\n  |> filter(fn: (r) => r._measurement == \"telemetry\")\n  |> group(columns: [\"kind\", \"device\"])\n  |> last()\n  |> group(columns: [\"kind\"])\n  |> count()\n  |> map(fn: (r) => ({_time: now(), _value: r._value, _field: r.kind}))"
+     "query": "from(bucket: \"iot\")\n  |> range(start: -20m)\n  |> filter(fn: (r) => r._measurement == \"telemetry\")\n  |> group(columns: [\"device\"])\n  |> last()\n  |> group()\n  |> count()\n  |> map(fn: (r) => ({_time: now(), _value: r._value, _field: \"dispositivos\"}))"
     }
    ],
    "options": {

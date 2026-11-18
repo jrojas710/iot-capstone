@@ -6,7 +6,7 @@
 Se conectan al broker de la nube por MQTT sobre WebSocket seguro (wss://<dominio>/mqtt).
 
   pip install paho-mqtt psutil
-  python real_devices.py --host iot-juanrojas.eastus2.cloudapp.azure.com --password <MQTT_REAL_PASSWORD>
+  python real_devices.py --host iot-juanrojas-capstone.mexicocentral.cloudapp.azure.com --password <MQTT_REAL_PASSWORD>
 """
 import argparse
 import logging

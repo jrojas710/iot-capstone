@@ -2,17 +2,16 @@
 title: "IoT a la medida — Campus inteligente UNAB"
 subtitle: "Parcial 2 · Proyecto final · IoT + Cloud + Sistemas Distribuidos"
 author: "Juan Camilo Rojas — U00178034"
-date: "[fecha de entrega]"
 ---
 
-**Repositorio:** <https://github.com/[usuario]/iot-capstone>  
-**Plataforma (URL propia):** <https://[dns].eastus2.cloudapp.azure.com> · Grafana: `/grafana` · API: `/api/docs`
+**Repositorio:** <https://github.com/jrojas710/iot-capstone>  
+**Plataforma (URL propia):** <https://iot-juanrojas-capstone.mexicocentral.cloudapp.azure.com> · Grafana: `/grafana` · API: `/api/docs`
 
 # 1. Descripción y contexto
 
 El escenario es un **campus universitario inteligente en Bucaramanga (UNAB)**. Una sola plataforma reúne la información ambiental y de infraestructura del campus para tomar decisiones de confort, ahorro de energía y agua y salud ambiental:
 
-- **Clima y calidad del aire** del campus y de Floridablanca, a partir del servicio meteorológico de Azure Maps.
+- **Clima y calidad del aire** del campus y de Floridablanca, a partir del servicio meteorológico abierto Open-Meteo (observaciones horarias y modelo de calidad del aire CAMS).
 - **Infraestructura simulada por gemelos digitales:** un invernadero con riego automático, un aula climatizada con control de CO₂, un sistema solar con batería para una caseta y un tanque de agua con bomba. Los gemelos usan como entrada el clima real de la API.
 - **Oficinas con sensores ambientales** de ocupación, CO₂, luz, temperatura y humedad, reproducidas desde un dataset científico público.
 - **Equipos reales:** el computador del estudiante, que mide su propio estado (CPU, RAM, batería y temperatura) y la calidad de su conexión a Internet.
@@ -67,7 +66,7 @@ Cada dispositivo es controlable desde la nube (**retroceso**): se puede apagar, 
 - **Transporte:**
   - Los dispositivos reales salen de una red doméstica, así que usan **MQTT sobre WebSocket con TLS** (`wss://<dominio>/mqtt`, puerto 443).
   - Los servicios internos usan **MQTT/TCP 1883** dentro de la red de Docker.
-  - Los dispositivos API consultan Azure Maps por **HTTPS REST** (`GET /weather/currentConditions` y `/weather/airQuality/current`) y un adaptador traduce la respuesta a MQTT.
+  - Los dispositivos API consultan Open-Meteo por **HTTPS REST** (`GET /v1/forecast?current=...` y `GET /v1/air-quality?current=...`) y un adaptador traduce la respuesta a MQTT. El adaptador también soporta Azure Maps Weather (`API_PROVIDER=azure`), pero la llave entregada para el curso respondía `401 Unauthorized` y la suscripción Azure for Students no permite crear una cuenta propia de Azure Maps en ninguna región habilitada, así que se usó Open-Meteo, que no requiere llave.
 
 Ejemplo de mensaje:
 ```
@@ -80,7 +79,7 @@ capstone/twin/twin-hvac-aula-01/telemetry
 
 Infraestructura propia en **Microsoft Azure** (Azure for Students):
 
-- **Máquina:** una VM Ubuntu 24.04 Standard_B2s con IP pública y un nombre DNS propio (`<dns>.eastus2.cloudapp.azure.com`). El grupo de seguridad de red solo abre los puertos 80 y 443.
+- **Máquina:** una VM Ubuntu 24.04 de 2 vCPU y 4 GB (serie B) en la región **México Central**, con IP pública y un nombre DNS propio (`iot-juanrojas-capstone.mexicocentral.cloudapp.azure.com`). La región se eligió porque la política de la suscripción Azure for Students solo permite westus, mexicocentral, brazilsouth, centralus y chilecentral. El grupo de seguridad de red solo abre los puertos 80 y 443.
 - **Despliegue:** se hace con Azure CLI y cloud-init (`infra/deploy_azure.sh`).
 - **Contenedores:** todo el stack corre con Docker Compose.
 
@@ -88,12 +87,12 @@ Infraestructura propia en **Microsoft Azure** (Azure for Students):
 |---|---|---|
 | caddy | Caddy 2.8 | Proxy inverso y certificado HTTPS automático (Let's Encrypt) |
 | mosquitto | Eclipse Mosquitto 2.0 | Bróker MQTT (TCP y WebSocket) |
-| devices | Python 3.12 | Adaptador de la API Azure Maps, 4 gemelos y 3 reproductores de dataset |
+| devices | Python 3.12 | Adaptador de la API Open-Meteo, 4 gemelos y 3 reproductores de dataset |
 | bridge | Python 3.12 | Suscriptor `capstone/#` que escribe en InfluxDB por lotes |
 | influxdb | InfluxDB 2.7 | Base de datos de series de tiempo (retención de 60 días) |
 | backend | FastAPI + Uvicorn | API REST, retroceso, caché del último estado y webhook de alertas |
 | grafana | Grafana OSS 11.2 | Dashboards y reglas de alerta, provisionados como código |
-| Azure Maps | Weather REST API | Fuente de los dispositivos API |
+| Open-Meteo | Forecast y Air Quality REST API | Fuente de los dispositivos API (sin llave) |
 
 ## 3.4 Visualización y procesamiento de los datos
 
@@ -144,13 +143,15 @@ Infraestructura propia en **Microsoft Azure** (Azure for Students):
 
 [Sección por completar con la exportación de la plataforma: una gráfica por dispositivo y su tabla de promedio, máximo y mínimo.]
 
-# 5. Análisis de gráficas y comportamiento (con IA)
+# 5. Análisis de gráficas y comportamiento
 
-[Sección por completar: el análisis se redacta con IA a partir de `evidencias/resumen.json` y las gráficas exportadas.]
+[Sección por completar a partir de `evidencias/resumen.json` y las gráficas exportadas.]
 
 # 6. Referencias
 
-- Microsoft. (2025). *Azure Maps Weather REST API*. <https://learn.microsoft.com/es-es/rest/api/maps/weather?view=rest-maps-2025-01-01>
+- Open-Meteo. (2026). *Weather Forecast API* y *Air Quality API*. <https://open-meteo.com/en/docs>
+- Zippenfenig, P. (2023). *Open-Meteo.com Weather API*. Zenodo. <https://doi.org/10.5281/zenodo.7970649>
+- Microsoft. (2025). *Azure Maps Weather REST API* (proveedor alterno soportado por el adaptador). <https://learn.microsoft.com/es-es/rest/api/maps/weather>
 - Candanedo, L. M., & Feldheim, V. (2016). Accurate occupancy detection of an office room from light, temperature, humidity and CO₂ measurements using statistical learning models. *Energy and Buildings, 112*, 28–39. Dataset: UCI Machine Learning Repository.
 - OASIS. (2014). *MQTT Version 3.1.1*. OASIS Standard.
 - Eclipse Foundation. *Eclipse Mosquitto documentation*. <https://mosquitto.org/documentation/>

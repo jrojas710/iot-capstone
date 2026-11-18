@@ -1,0 +1,777 @@
+{
+ "api-air-unab": {
+  "tipo": "api",
+  "variables": {
+   "aqi": {
+    "promedio": 60.102,
+    "maximo": 79.0,
+    "minimo": 54.0,
+    "ultimo": 79.0,
+    "muestras": 147,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:35-05:00",
+    "momento_max": "2026-11-18T16:00-05:00",
+    "momento_min": "2026-11-14T22:00-05:00"
+   },
+   "co": {
+    "promedio": 508.571,
+    "maximo": 1712.0,
+    "minimo": 188.0,
+    "ultimo": 304.0,
+    "muestras": 147,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:35-05:00",
+    "momento_max": "2026-11-12T19:00-05:00",
+    "momento_min": "2026-11-17T03:00-05:00"
+   },
+   "no2": {
+    "promedio": 18.001,
+    "maximo": 54.7,
+    "minimo": 0.7,
+    "ultimo": 4.3,
+    "muestras": 147,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:35-05:00",
+    "momento_max": "2026-11-13T19:00-05:00",
+    "momento_min": "2026-11-13T11:00-05:00"
+   },
+   "o3": {
+    "promedio": 64.116,
+    "maximo": 139.0,
+    "minimo": 11.0,
+    "ultimo": 128.0,
+    "muestras": 147,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:35-05:00",
+    "momento_max": "2026-11-18T11:00-05:00",
+    "momento_min": "2026-11-16T05:00-05:00"
+   },
+   "pm10": {
+    "promedio": 15.711,
+    "maximo": 30.0,
+    "minimo": 3.1,
+    "ultimo": 18.9,
+    "muestras": 147,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:35-05:00",
+    "momento_max": "2026-11-13T19:00-05:00",
+    "momento_min": "2026-11-16T09:00-05:00"
+   },
+   "pm2_5": {
+    "promedio": 14.751,
+    "maximo": 29.3,
+    "minimo": 2.9,
+    "ultimo": 15.9,
+    "muestras": 147,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:35-05:00",
+    "momento_max": "2026-11-13T19:00-05:00",
+    "momento_min": "2026-11-16T09:00-05:00"
+   }
+  }
+ },
+ "api-weather-floridablanca": {
+  "tipo": "api",
+  "variables": {
+   "cloud_cover_pct": {
+    "promedio": 75.385,
+    "maximo": 100.0,
+    "minimo": 14.0,
+    "ultimo": 57.0,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-12T18:00-05:00",
+    "momento_min": "2026-11-18T13:00-05:00"
+   },
+   "humidity_pct": {
+    "promedio": 80.973,
+    "maximo": 99.0,
+    "minimo": 56.0,
+    "ultimo": 71.0,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-17T02:00-05:00",
+    "momento_min": "2026-11-13T11:00-05:00"
+   },
+   "precip_mm": {
+    "promedio": 0.09,
+    "maximo": 1.6,
+    "minimo": 0.0,
+    "ultimo": 0.0,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-14T00:00-05:00",
+    "momento_min": "2026-11-12T17:00-05:00"
+   },
+   "pressure_mb": {
+    "promedio": 913.276,
+    "maximo": 917.4,
+    "minimo": 909.5,
+    "ultimo": 909.7,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-15T09:00-05:00",
+    "momento_min": "2026-11-18T15:00-05:00"
+   },
+   "temperature_c": {
+    "promedio": 23.831,
+    "maximo": 29.6,
+    "minimo": 19.4,
+    "ultimo": 26.7,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-13T12:00-05:00",
+    "momento_min": "2026-11-17T05:00-05:00"
+   },
+   "uv_index": {
+    "promedio": 2.056,
+    "maximo": 8.3,
+    "minimo": 0.0,
+    "ultimo": 0.75,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-13T12:00-05:00",
+    "momento_min": "2026-11-12T19:00-05:00"
+   },
+   "wind_kmh": {
+    "promedio": 5.056,
+    "maximo": 10.7,
+    "minimo": 0.2,
+    "ultimo": 6.0,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-14T15:00-05:00",
+    "momento_min": "2026-11-16T01:00-05:00"
+   }
+  }
+ },
+ "api-weather-unab": {
+  "tipo": "api",
+  "variables": {
+   "cloud_cover_pct": {
+    "promedio": 76.378,
+    "maximo": 100.0,
+    "minimo": 14.0,
+    "ultimo": 64.0,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-13T01:00-05:00",
+    "momento_min": "2026-11-18T12:00-05:00"
+   },
+   "humidity_pct": {
+    "promedio": 81.216,
+    "maximo": 100.0,
+    "minimo": 54.0,
+    "ultimo": 71.0,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-17T01:00-05:00",
+    "momento_min": "2026-11-13T11:00-05:00"
+   },
+   "precip_mm": {
+    "promedio": 0.124,
+    "maximo": 1.1,
+    "minimo": 0.0,
+    "ultimo": 0.0,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-14T00:00-05:00",
+    "momento_min": "2026-11-12T17:00-05:00"
+   },
+   "pressure_mb": {
+    "promedio": 900.864,
+    "maximo": 905.0,
+    "minimo": 897.4,
+    "ultimo": 897.5,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-15T09:00-05:00",
+    "momento_min": "2026-11-18T15:00-05:00"
+   },
+   "temperature_c": {
+    "promedio": 23.097,
+    "maximo": 28.9,
+    "minimo": 18.2,
+    "ultimo": 26.0,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-13T12:00-05:00",
+    "momento_min": "2026-11-17T06:00-05:00"
+   },
+   "uv_index": {
+    "promedio": 2.056,
+    "maximo": 8.3,
+    "minimo": 0.0,
+    "ultimo": 0.75,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-13T12:00-05:00",
+    "momento_min": "2026-11-12T19:00-05:00"
+   },
+   "wind_kmh": {
+    "promedio": 4.544,
+    "maximo": 8.6,
+    "minimo": 0.4,
+    "ultimo": 4.5,
+    "muestras": 148,
+    "inicio": "2026-11-12T17:00-05:00",
+    "fin": "2026-11-18T16:45-05:00",
+    "momento_max": "2026-11-17T16:00-05:00",
+    "momento_min": "2026-11-15T06:00-05:00"
+   }
+  }
+ },
+ "ds-office-a": {
+  "tipo": "dataset",
+  "variables": {
+   "co2_ppm": {
+    "promedio": 734.477,
+    "maximo": 2028.5,
+    "minimo": 413.0,
+    "ultimo": 1068.75,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-16T17:05-05:00",
+    "momento_min": "2026-11-15T16:25-05:00"
+   },
+   "humidity_pct": {
+    "promedio": 27.948,
+    "maximo": 39.117,
+    "minimo": 16.79,
+    "ultimo": 26.39,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-16T17:19-05:00",
+    "momento_min": "2026-11-14T13:27-05:00"
+   },
+   "humidity_ratio": {
+    "promedio": 0.004,
+    "maximo": 0.006,
+    "minimo": 0.003,
+    "ultimo": 0.004,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-16T12:20-05:00",
+    "momento_min": "2026-11-12T18:45-05:00"
+   },
+   "light_lux": {
+    "promedio": 150.716,
+    "maximo": 1451.75,
+    "minimo": 0.0,
+    "ultimo": 438.0,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-14T09:43-05:00",
+    "momento_min": "2026-11-12T18:05-05:00"
+   },
+   "occupancy": {
+    "promedio": 0.293,
+    "maximo": 1.0,
+    "minimo": 0.0,
+    "ultimo": 1.0,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T16:47-05:00",
+    "momento_min": "2026-11-12T18:05-05:00"
+   },
+   "temperature_c": {
+    "promedio": 20.692,
+    "maximo": 23.1,
+    "minimo": 19.0,
+    "ultimo": 22.34,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-14T12:39-05:00",
+    "momento_min": "2026-11-15T07:29-05:00"
+   }
+  }
+ },
+ "ds-office-b": {
+  "tipo": "dataset",
+  "variables": {
+   "co2_ppm": {
+    "promedio": 766.609,
+    "maximo": 1402.25,
+    "minimo": 427.5,
+    "ultimo": 1401.167,
+    "muestras": 6379,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T17:03-05:00",
+    "momento_min": "2026-11-16T02:49-05:00"
+   },
+   "humidity_pct": {
+    "promedio": 25.857,
+    "maximo": 31.473,
+    "minimo": 22.1,
+    "ultimo": 31.245,
+    "muestras": 6379,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T17:03-05:00",
+    "momento_min": "2026-11-16T01:29-05:00"
+   },
+   "humidity_ratio": {
+    "promedio": 0.004,
+    "maximo": 0.005,
+    "minimo": 0.003,
+    "ultimo": 0.005,
+    "muestras": 6379,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T16:47-05:00",
+    "momento_min": "2026-11-16T00:00-05:00"
+   },
+   "light_lux": {
+    "promedio": 221.055,
+    "maximo": 1697.25,
+    "minimo": 0.0,
+    "ultimo": 447.0,
+    "muestras": 6379,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T09:41-05:00",
+    "momento_min": "2026-11-12T18:13-05:00"
+   },
+   "occupancy": {
+    "promedio": 0.406,
+    "maximo": 1.0,
+    "minimo": 0.0,
+    "ultimo": 1.0,
+    "muestras": 6379,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T16:47-05:00",
+    "momento_min": "2026-11-12T18:13-05:00"
+   },
+   "temperature_c": {
+    "promedio": 21.533,
+    "maximo": 24.408,
+    "minimo": 20.2,
+    "ultimo": 22.7,
+    "muestras": 6379,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T10:43-05:00",
+    "momento_min": "2026-11-16T07:00-05:00"
+   }
+  }
+ },
+ "ds-office-c": {
+  "tipo": "dataset",
+  "variables": {
+   "co2_ppm": {
+    "promedio": 778.902,
+    "maximo": 2072.0,
+    "minimo": 492.75,
+    "ultimo": 782.75,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-17T22:56-05:00",
+    "momento_min": "2026-11-14T13:01-05:00"
+   },
+   "humidity_pct": {
+    "promedio": 29.741,
+    "maximo": 39.5,
+    "minimo": 21.865,
+    "ultimo": 30.172,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-14T06:37-05:00",
+    "momento_min": "2026-11-18T08:33-05:00"
+   },
+   "humidity_ratio": {
+    "promedio": 0.005,
+    "maximo": 0.006,
+    "minimo": 0.003,
+    "ultimo": 0.005,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-14T06:29-05:00",
+    "momento_min": "2026-11-18T05:04-05:00"
+   },
+   "light_lux": {
+    "promedio": 142.687,
+    "maximo": 1581.0,
+    "minimo": 0.0,
+    "ultimo": 428.25,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T09:47-05:00",
+    "momento_min": "2026-11-12T17:45-05:00"
+   },
+   "occupancy": {
+    "promedio": 0.255,
+    "maximo": 1.0,
+    "minimo": 0.0,
+    "ultimo": 1.0,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T16:47-05:00",
+    "momento_min": "2026-11-12T17:45-05:00"
+   },
+   "temperature_c": {
+    "promedio": 21.036,
+    "maximo": 24.39,
+    "minimo": 19.5,
+    "ultimo": 21.945,
+    "muestras": 6383,
+    "inicio": "2026-11-12T16:47-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T12:46-05:00",
+    "momento_min": "2026-11-14T05:55-05:00"
+   }
+  }
+ },
+ "real-net-01": {
+  "tipo": "real",
+  "variables": {
+   "jitter_ms": {
+    "promedio": 21.953,
+    "maximo": 29.152,
+    "minimo": 16.648,
+    "ultimo": 22.94,
+    "muestras": 46,
+    "inicio": "2026-11-18T16:23-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T16:32-05:00",
+    "momento_min": "2026-11-18T16:38-05:00"
+   },
+   "latency_ms": {
+    "promedio": 25.478,
+    "maximo": 42.049,
+    "minimo": 18.046,
+    "ultimo": 34.245,
+    "muestras": 46,
+    "inicio": "2026-11-18T16:23-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T16:44-05:00",
+    "momento_min": "2026-11-18T16:33-05:00"
+   },
+   "loss_pct": {
+    "promedio": 0.0,
+    "maximo": 0.0,
+    "minimo": 0.0,
+    "ultimo": 0.0,
+    "muestras": 46,
+    "inicio": "2026-11-18T16:23-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T16:23-05:00",
+    "momento_min": "2026-11-18T16:23-05:00"
+   }
+  }
+ },
+ "real-pc-01": {
+  "tipo": "real",
+  "variables": {
+   "battery_pct": {
+    "promedio": 88.0,
+    "maximo": 88.0,
+    "minimo": 88.0,
+    "ultimo": 88.0,
+    "muestras": 46,
+    "inicio": "2026-11-18T16:23-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T16:23-05:00",
+    "momento_min": "2026-11-18T16:23-05:00"
+   },
+   "cpu_pct": {
+    "promedio": 11.661,
+    "maximo": 31.2,
+    "minimo": 5.1,
+    "ultimo": 6.8,
+    "muestras": 46,
+    "inicio": "2026-11-18T16:23-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T16:27-05:00",
+    "momento_min": "2026-11-18T16:27-05:00"
+   },
+   "disk_pct": {
+    "promedio": 54.6,
+    "maximo": 54.6,
+    "minimo": 54.6,
+    "ultimo": 54.6,
+    "muestras": 46,
+    "inicio": "2026-11-18T16:23-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T16:23-05:00",
+    "momento_min": "2026-11-18T16:23-05:00"
+   },
+   "plugged_in": {
+    "promedio": 1.0,
+    "maximo": 1.0,
+    "minimo": 1.0,
+    "ultimo": 1.0,
+    "muestras": 46,
+    "inicio": "2026-11-18T16:23-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T16:23-05:00",
+    "momento_min": "2026-11-18T16:23-05:00"
+   },
+   "ram_pct": {
+    "promedio": 84.498,
+    "maximo": 87.5,
+    "minimo": 80.5,
+    "ultimo": 83.5,
+    "muestras": 46,
+    "inicio": "2026-11-18T16:23-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T16:29-05:00",
+    "momento_min": "2026-11-18T16:23-05:00"
+   }
+  }
+ },
+ "twin-greenhouse-01": {
+  "tipo": "twin",
+  "variables": {
+   "air_temp_c": {
+    "promedio": 25.814,
+    "maximo": 36.492,
+    "minimo": 18.448,
+    "ultimo": 25.286,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T12:50-05:00",
+    "momento_min": "2026-11-18T03:21-05:00"
+   },
+   "irrigation_on": {
+    "promedio": 0.014,
+    "maximo": 1.0,
+    "minimo": 0.0,
+    "ultimo": 0.0,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T18:35-05:00",
+    "momento_min": "2026-11-12T16:50-05:00"
+   },
+   "light_lux": {
+    "promedio": 11208.22,
+    "maximo": 52168.492,
+    "minimo": 0.0,
+    "ultimo": 9285.318,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T12:15-05:00",
+    "momento_min": "2026-11-12T18:00-05:00"
+   },
+   "rel_humidity_pct": {
+    "promedio": 70.431,
+    "maximo": 95.26,
+    "minimo": 45.239,
+    "ultimo": 70.263,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-17T00:18-05:00",
+    "momento_min": "2026-11-18T14:07-05:00"
+   },
+   "soil_moisture_pct": {
+    "promedio": 47.345,
+    "maximo": 61.895,
+    "minimo": 34.991,
+    "ultimo": 49.916,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T19:00-05:00",
+    "momento_min": "2026-11-15T18:20-05:00"
+   }
+  }
+ },
+ "twin-hvac-aula-01": {
+  "tipo": "twin",
+  "variables": {
+   "co2_ppm": {
+    "promedio": 787.921,
+    "maximo": 1522.447,
+    "minimo": 392.068,
+    "ultimo": 882.976,
+    "muestras": 5028,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T10:47-05:00",
+    "momento_min": "2026-11-16T06:09-05:00"
+   },
+   "hvac_power_kw": {
+    "promedio": 1.271,
+    "maximo": 4.45,
+    "minimo": 0.05,
+    "ultimo": 4.45,
+    "muestras": 5028,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T14:00-05:00",
+    "momento_min": "2026-11-12T21:00-05:00"
+   },
+   "occupancy": {
+    "promedio": 12.098,
+    "maximo": 40.0,
+    "minimo": 0.0,
+    "ultimo": 35.0,
+    "muestras": 5028,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-18T09:00-05:00",
+    "momento_min": "2026-11-12T21:00-05:00"
+   },
+   "room_temp_c": {
+    "promedio": 23.222,
+    "maximo": 27.924,
+    "minimo": 19.741,
+    "ultimo": 24.745,
+    "muestras": 5028,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-15T17:55-05:00",
+    "momento_min": "2026-11-14T05:40-05:00"
+   },
+   "setpoint_c": {
+    "promedio": 22.991,
+    "maximo": 23.0,
+    "minimo": 21.0,
+    "ultimo": 21.0,
+    "muestras": 5028,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T16:50-05:00",
+    "momento_min": "2026-11-18T16:25-05:00"
+   }
+  }
+ },
+ "twin-solar-01": {
+  "tipo": "twin",
+  "variables": {
+   "battery_soc_pct": {
+    "promedio": 37.008,
+    "maximo": 89.739,
+    "minimo": 0.0,
+    "ultimo": 69.854,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T16:50-05:00",
+    "momento_min": "2026-11-15T05:50-05:00"
+   },
+   "irradiance_wm2": {
+    "promedio": 193.919,
+    "maximo": 966.233,
+    "minimo": 0.0,
+    "ultimo": 157.666,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T12:30-05:00",
+    "momento_min": "2026-11-12T18:00-05:00"
+   },
+   "load_shed": {
+    "promedio": 0.321,
+    "maximo": 1.0,
+    "minimo": 0.0,
+    "ultimo": 0.0,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T21:10-05:00",
+    "momento_min": "2026-11-12T16:50-05:00"
+   },
+   "load_w": {
+    "promedio": 233.323,
+    "maximo": 666.312,
+    "minimo": 68.047,
+    "ultimo": 218.453,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-17T20:12-05:00",
+    "momento_min": "2026-11-17T06:14-05:00"
+   },
+   "pv_power_w": {
+    "promedio": 207.699,
+    "maximo": 1031.272,
+    "minimo": 0.0,
+    "ultimo": 169.598,
+    "muestras": 5027,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-13T12:25-05:00",
+    "momento_min": "2026-11-12T18:00-05:00"
+   }
+  }
+ },
+ "twin-tank-01": {
+  "tipo": "twin",
+  "variables": {
+   "inflow_lpm": {
+    "promedio": 4.472,
+    "maximo": 40.0,
+    "minimo": 0.0,
+    "ultimo": 0.0,
+    "muestras": 5090,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T19:35-05:00",
+    "momento_min": "2026-11-12T16:50-05:00"
+   },
+   "level_pct": {
+    "promedio": 64.13,
+    "maximo": 95.418,
+    "minimo": 28.084,
+    "ultimo": 58.165,
+    "muestras": 5090,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-15T07:05-05:00",
+    "momento_min": "2026-11-13T19:35-05:00"
+   },
+   "outflow_lpm": {
+    "promedio": 4.546,
+    "maximo": 19.17,
+    "minimo": 0.0,
+    "ultimo": 2.662,
+    "muestras": 5090,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-17T07:44-05:00",
+    "momento_min": "2026-11-12T23:00-05:00"
+   },
+   "pump_on": {
+    "promedio": 0.112,
+    "maximo": 1.0,
+    "minimo": 0.0,
+    "ultimo": 0.0,
+    "muestras": 5090,
+    "inicio": "2026-11-12T16:50-05:00",
+    "fin": "2026-11-18T16:46-05:00",
+    "momento_max": "2026-11-12T19:35-05:00",
+    "momento_min": "2026-11-12T16:50-05:00"
+   }
+  }
+ }
+}

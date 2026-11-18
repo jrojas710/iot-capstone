@@ -1,0 +1,7 @@
+.env
+despliegue.txt
+.precarga_hecha
+__pycache__/
+*.pyc
+evidencias/raw/
+*.postman_collection.json

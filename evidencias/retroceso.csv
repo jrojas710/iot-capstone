@@ -1,0 +1,9 @@
+hora,dispositivo,parametro,antes,despues
+2026-11-18T16:24:41-05:00,ds-office-b,power,1,0
+2026-11-18T16:25:00-05:00,twin-hvac-aula-01,setpoint_setpoint_c,23,21
+2026-11-18T16:25:29-05:00,twin-tank-01,period_s,60,15
+2026-11-18T16:28:53-05:00,ds-office-b,power,0,1
+2026-11-18T16:35:06-05:00,twin-tank-01,period_s,15,60
+2026-11-18T16:35:06-05:00,twin-hvac-aula-01,setpoint_setpoint_c,21,23
+2026-11-18T16:35:06-05:00,twin-tank-01,period_s,60,15
+2026-11-18T16:35:06-05:00,twin-hvac-aula-01,setpoint_setpoint_c,23,21

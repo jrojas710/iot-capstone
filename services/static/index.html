@@ -27,7 +27,7 @@ button.sec{background:#e9e5db;color:var(--ink)}.row{display:flex;gap:6px;margin-
 <nav><a href="/grafana/">Grafana</a><a href="/api/docs">API</a><a href="#" id="key">Llave admin</a></nav></header>
 <main id="app">Cargando…</main><div id="toast"></div>
 <script>
-const KINDS={real:"Dispositivos reales",api:"API · Azure Maps",twin:"Gemelos digitales",dataset:"DataSet UCI"};
+const KINDS={real:"Dispositivos reales",api:"API · Open-Meteo",twin:"Gemelos digitales",dataset:"DataSet UCI"};
 let KEY=""; try{KEY=localStorage.getItem("iotkey")||""}catch(e){}
 document.getElementById("key").onclick=e=>{e.preventDefault();KEY=prompt("Llave de administración (ADMIN_TOKEN)",KEY)||"";try{localStorage.setItem("iotkey",KEY)}catch(e){}};
 const toast=m=>{const t=document.getElementById("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",3500)};

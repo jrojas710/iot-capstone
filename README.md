@@ -1,5 +1,7 @@
 # IoT a la medida — Campus inteligente UNAB
 
+Plataforma en línea: <https://iot-juanrojas-capstone.mexicocentral.cloudapp.azure.com> · Grafana: <https://iot-juanrojas-capstone.mexicocentral.cloudapp.azure.com/grafana/>
+
 **Parcial 2 · Proyecto final · Juan Camilo Rojas (U00178034)**
 
 Plataforma IoT propia desplegada en Azure con **12 dispositivos** de cuatro tipos (2 reales, 3 API, 4 gemelos digitales y 3 DataSet). Usa MQTT con autenticación y ACL, almacena en InfluxDB, visualiza en Grafana con alertas, y tiene **retroceso**: cada dispositivo se puede apagar, encender, calibrar o ajustar desde la web.
@@ -32,10 +34,10 @@ Comandos de retroceso: `{"power":"off"}`, `{"period_s":10}`, `{"offset":{"cpu_pc
 
 ## Despliegue (Azure)
 ```bash
-git clone https://github.com/<usuario>/iot-capstone && cd iot-capstone
-REPO=https://github.com/<usuario>/iot-capstone AZURE_MAPS_KEY=<llave> ./infra/deploy_azure.sh
+git clone https://github.com/jrojas710/iot-capstone && cd iot-capstone
+REPO=https://github.com/jrojas710/iot-capstone LOC=mexicocentral ./infra/deploy_azure.sh
 ```
-Crea una VM Ubuntu (Standard_B2s) con un DNS propio, abre los puertos 80 y 443, instala Docker, clona el repo, genera los secretos, levanta el stack y pre-carga 5 días de historial de los gemelos y del dataset, más las últimas 24 h reales de la API. Los datos de acceso quedan en `despliegue.txt`, que no se sube al repo.
+Crea una VM Ubuntu (serie B, 2 vCPU) con un DNS propio, abre los puertos 80 y 443, instala Docker, clona el repo, genera los secretos, levanta el stack y pre-carga 5 días de historial de los gemelos y del dataset, más el historial horario real de la API (Open-Meteo, `past_days`). Los datos de acceso quedan en `despliegue.txt`, que no se sube al repo.
 
 ## Dispositivos reales (en tu computador)
 ```bash
@@ -55,5 +57,5 @@ docker compose run --rm -v "$PWD/evidencias:/app/evidencias" backend python expo
 ```
 
 ## Fuentes de datos
-- Azure Maps Weather REST API (condiciones actuales y calidad del aire).
+- Open-Meteo Forecast y Air Quality API (condiciones actuales, historial horario y calidad del aire). Azure Maps queda como proveedor alterno (`API_PROVIDER=azure`).
 - Candanedo, L. M. & Feldheim, V. (2016). *Occupancy Detection Data Set*. UCI Machine Learning Repository.
