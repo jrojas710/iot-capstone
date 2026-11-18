@@ -77,17 +77,20 @@ def main():
                 "inicio": pts[0][0].isoformat(timespec="minutes"), "fin": pts[-1][0].isoformat(timespec="minutes"),
                 "momento_max": pts[vals.index(max(vals))][0].isoformat(timespec="minutes"),
                 "momento_min": pts[vals.index(min(vals))][0].isoformat(timespec="minutes")}
-            hourly = defaultdict(list)
-            for t, v in pts:
-                hourly[t.replace(minute=0, second=0, microsecond=0)].append(v)
-            hx = sorted(hourly)
             c = COLORS.get(kinds[dev], "#333")
-            ax.fill_between(hx, [min(hourly[h]) for h in hx], [max(hourly[h]) for h in hx], color=c, alpha=.18, lw=0)
-            ax.plot(hx, [sum(hourly[h]) / len(hourly[h]) for h in hx], color=c, lw=1.4)
+            if pts[-1][0] - pts[0][0] < timedelta(hours=6):      # serie corta: muestras crudas
+                ax.plot([t for t, _ in pts], vals, color=c, lw=1.2, marker="o", ms=2.5)
+            else:
+                hourly = defaultdict(list)
+                for t, v in pts:
+                    hourly[t.replace(minute=0, second=0, microsecond=0)].append(v)
+                hx = sorted(hourly)
+                ax.fill_between(hx, [min(hourly[h]) for h in hx], [max(hourly[h]) for h in hx], color=c, alpha=.18, lw=0)
+                ax.plot(hx, [sum(hourly[h]) / len(hourly[h]) for h in hx], color=c, lw=1.4)
             ax.set_ylabel(field, fontsize=8)
             ax.grid(alpha=.3)
             ax.tick_params(labelsize=8)
-        axes[-1, 0].xaxis.set_major_formatter(mdates.DateFormatter("%d/%m %Hh", tz=BOG))
+        axes[-1, 0].xaxis.set_major_formatter(mdates.DateFormatter("%d/%m %H:%M", tz=BOG))
         fig.suptitle(f"{dev} ({kinds[dev]}) — promedio horario y rango mín–máx", fontsize=11)
         fig.tight_layout()
         fig.savefig(os.path.join(OUT, "graficas", f"{dev}.png"), dpi=110)
